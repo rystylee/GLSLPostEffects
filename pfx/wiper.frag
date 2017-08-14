@@ -16,10 +16,18 @@ void main() {
     
     vec4 col = texture(fbo, vTexCoord);
     
-    vec3 noise = vec3(shadeVal1, 0.0, u_time * 1.5);
+    //vec3 noise = vec3(shadeVal1, 0.0, u_time * 1.5);
+    //vec3 noise = vec3(0.025, 0.0, shadeVal1*10.0 + u_time);
+    vec3 noise = vec3(0.01, 0.0, u_time * 1.5);
     vec2 uv = vTexCoord;
     
     float r = snoise(vec3(noise.x * uv.x, noise.y * uv.y, noise.z));
     
-    fragColor = vec4(r + col);
+    if(shadeVal1 > 0.06){
+        col.r += r * 0.3;
+        col.g += r * 0.3;
+        col.b += r * 0.3;
+    }
+    
+    fragColor = vec4(col);
 }
